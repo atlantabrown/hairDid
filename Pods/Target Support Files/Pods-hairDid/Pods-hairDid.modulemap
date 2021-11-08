@@ -1,0 +1,6 @@
+framework module Pods_hairDid {
+  umbrella header "Pods-hairDid-umbrella.h"
+
+  export *
+  module * { export * }
+}
