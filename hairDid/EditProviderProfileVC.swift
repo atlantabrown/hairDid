@@ -6,13 +6,19 @@
 //
 
 import UIKit
+import Firebase
 
 class EditProviderProfileVC: UIViewController {
+    
+    
+    //var imagePicker:UIImagePickerController
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
         // Do any additional setup after loading the view.
+
+        
     }
     
 

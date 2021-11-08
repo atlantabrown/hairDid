@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0FAFAADC55AF64B076DEE2C2 /* Pods_hairDid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D478E62146667A562A10146 /* Pods_hairDid.framework */; };
+		BE18894527390D70001FACC7 /* background.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = BE18894427390D70001FACC7 /* background.jpeg */; };
+		BE18894727391451001FACC7 /* LoadingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18894627391451001FACC7 /* LoadingPage.swift */; };
+		BE18894927391488001FACC7 /* ProviderHomePageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18894827391488001FACC7 /* ProviderHomePageVC.swift */; };
+		BE18894B273914BB001FACC7 /* ClientHomePageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18894A273914BB001FACC7 /* ClientHomePageVC.swift */; };
+		BE18894D273914E1001FACC7 /* ClientLikeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18894C273914E1001FACC7 /* ClientLikeListVC.swift */; };
+		BE18894F27391539001FACC7 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18894E27391539001FACC7 /* SettingsVC.swift */; };
 		BE24258427323761007B5175 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24258327323761007B5175 /* AppDelegate.swift */; };
 		BE24258627323761007B5175 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24258527323761007B5175 /* SceneDelegate.swift */; };
 		BE24258827323761007B5175 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24258727323761007B5175 /* LoginVC.swift */; };
@@ -25,6 +31,12 @@
 		012E7D1FAFE13BA89B7C8B7E /* Pods-hairDid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hairDid.release.xcconfig"; path = "Target Support Files/Pods-hairDid/Pods-hairDid.release.xcconfig"; sourceTree = "<group>"; };
 		3BF2119A71B23EAA38402B85 /* Pods-hairDid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hairDid.debug.xcconfig"; path = "Target Support Files/Pods-hairDid/Pods-hairDid.debug.xcconfig"; sourceTree = "<group>"; };
 		5D478E62146667A562A10146 /* Pods_hairDid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hairDid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE18894427390D70001FACC7 /* background.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpeg; sourceTree = SOURCE_ROOT; };
+		BE18894627391451001FACC7 /* LoadingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPage.swift; sourceTree = "<group>"; };
+		BE18894827391488001FACC7 /* ProviderHomePageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderHomePageVC.swift; sourceTree = "<group>"; };
+		BE18894A273914BB001FACC7 /* ClientHomePageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientHomePageVC.swift; sourceTree = "<group>"; };
+		BE18894C273914E1001FACC7 /* ClientLikeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientLikeListVC.swift; sourceTree = "<group>"; };
+		BE18894E27391539001FACC7 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		BE24258027323761007B5175 /* hairDid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hairDid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE24258327323761007B5175 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE24258527323761007B5175 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,17 +105,23 @@
 			children = (
 				BE24259C273242F1007B5175 /* hairDid.entitlements */,
 				BE24258327323761007B5175 /* AppDelegate.swift */,
+				BE18894627391451001FACC7 /* LoadingPage.swift */,
 				BE24258527323761007B5175 /* SceneDelegate.swift */,
 				BE24258727323761007B5175 /* LoginVC.swift */,
 				BE24259D273248C9007B5175 /* CreateAccountVC.swift */,
 				BE24259F2736075B007B5175 /* EditClientProfileVC.swift */,
 				BE2425A127360772007B5175 /* EditProviderProfileVC.swift */,
+				BE18894827391488001FACC7 /* ProviderHomePageVC.swift */,
+				BE18894A273914BB001FACC7 /* ClientHomePageVC.swift */,
 				BE24258927323761007B5175 /* Main.storyboard */,
+				BE18894427390D70001FACC7 /* background.jpeg */,
 				BE24258F27323763007B5175 /* Assets.xcassets */,
 				BE24259127323763007B5175 /* LaunchScreen.storyboard */,
 				BE24259427323763007B5175 /* Info.plist */,
 				BE24258C27323761007B5175 /* hairDid.xcdatamodeld */,
 				BE24259A27323AC8007B5175 /* GoogleService-Info.plist */,
+				BE18894C273914E1001FACC7 /* ClientLikeListVC.swift */,
+				BE18894E27391539001FACC7 /* SettingsVC.swift */,
 			);
 			path = hairDid;
 			sourceTree = "<group>";
@@ -172,6 +190,7 @@
 				BE24259B27323AC8007B5175 /* GoogleService-Info.plist in Resources */,
 				BE24259027323763007B5175 /* Assets.xcassets in Resources */,
 				BE24258B27323761007B5175 /* Main.storyboard in Resources */,
+				BE18894527390D70001FACC7 /* background.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,12 +244,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE24258827323761007B5175 /* LoginVC.swift in Sources */,
+				BE18894927391488001FACC7 /* ProviderHomePageVC.swift in Sources */,
 				BE2425A02736075B007B5175 /* EditClientProfileVC.swift in Sources */,
 				BE24258E27323761007B5175 /* hairDid.xcdatamodeld in Sources */,
 				BE24258427323761007B5175 /* AppDelegate.swift in Sources */,
+				BE18894F27391539001FACC7 /* SettingsVC.swift in Sources */,
+				BE18894B273914BB001FACC7 /* ClientHomePageVC.swift in Sources */,
 				BE24259E273248C9007B5175 /* CreateAccountVC.swift in Sources */,
 				BE24258627323761007B5175 /* SceneDelegate.swift in Sources */,
+				BE18894D273914E1001FACC7 /* ClientLikeListVC.swift in Sources */,
 				BE2425A227360772007B5175 /* EditProviderProfileVC.swift in Sources */,
+				BE18894727391451001FACC7 /* LoadingPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

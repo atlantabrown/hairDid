@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import Firebase
 
 class EditClientProfileVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
         // Do any additional setup after loading the view.
     }
     

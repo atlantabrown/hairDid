@@ -6,7 +6,8 @@
 //
 
 import UIKit
-import FirebaseAuth
+import Firebase
+import FirebaseStorage
 
 class CreateAccountVC: UIViewController {
     
@@ -21,13 +22,17 @@ class CreateAccountVC: UIViewController {
     
     @IBOutlet weak var createAccountButton: UIButton!
     
-    var userType = ""
+    // client is default value
+    var userType = "client"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
         
         // Do any additional setup after loading the view.
     }
+    
+    
     
     @IBAction func segSelected(_ sender: Any) {
         switch providerClientSeg.selectedSegmentIndex {
@@ -49,7 +54,7 @@ class CreateAccountVC: UIViewController {
         guard let password = userPasswordTF.text else { return }
         
         var alertMessage: String = ""
-        Auth.auth().createUser(withEmail: email, password: password) { user, error in
+        Auth.auth().createUser(withEmail: email, password: password) { [self] user, error in
             if let error = error as NSError? {
                 switch AuthErrorCode(rawValue: error.code) {
                 case .operationNotAllowed:
@@ -73,17 +78,17 @@ class CreateAccountVC: UIViewController {
                     alertMessage = "Email already in use. Please try again."
                 }
             } else {
-                //alertMessage = "Account created successfully!"
+                // popup that says "Account created successfully"
                 
-                // add some sort of message about account being created successfully
+                // save profile information to firebase database (used for login stuff)
+                self.saveProfile(userName:self.userNameTF.text!, accountType: self.userType) { success in
+                }
                 
-                // user signs in successfully
-                Auth.auth().signIn(withEmail: self.userEmailTF.text!,
-                                   password: self.userPasswordTF.text!)
+                // signs the user in
+                Auth.auth().signIn(withEmail: self.userEmailTF.text!, password: self.userPasswordTF.text!)
                 
                 // if correctly signed in, direct them to the appropriate VC
-                // will need to find a way to send over their name
-                // can segue and delgate stuff go here??
+                // send their name over to profile
                 if (self.userType == "provider"){
                     self.performSegue(withIdentifier: "goToEditProviderProfile", sender: self.createAccountButton)
                 }else {
@@ -91,10 +96,28 @@ class CreateAccountVC: UIViewController {
                 }
             }
                 
-          // Communicate with user about errors
+          // Communicate with user about any errors that occured 
           let alertController = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
           alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
           self.present(alertController, animated: true)
+        }
+    }
+    
+    // updates database with user profile name and type of account
+    // may add a profile picture to this  ******
+    func saveProfile(userName: String, accountType: String, completion: @escaping ((_ success:Bool)->())){
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        //let storageRef = Storage.storage().reference().child("user/\(uid)")
+        //storageRef.putData(<#T##uploadData: Data##Data#>)
+        let databaseRef = Database.database().reference().child("users/profile\(uid)")
+        
+        let userObject: [String: Any] = [
+            "userName": userName as NSObject,
+            "accountType": accountType,
+        ]
+        
+        databaseRef.setValue(userObject) { error, ref in
+            completion(error == nil)
         }
     }
     
