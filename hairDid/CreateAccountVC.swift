@@ -77,10 +77,6 @@ class CreateAccountVC: UIViewController {
                     alertMessage = "Email already in use. Please try again."
                 }
             } else {
-                // popup that says "Account created successfully"
-                let alertController = UIAlertController(title: nil, message: "Account created successfully", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.present(alertController, animated: true)
                 // save profile information to firebase database (used for login stuff)
                 self.saveProfile(userName:self.userNameTF.text!, accountType: self.userType) { success in
                 }
@@ -88,13 +84,19 @@ class CreateAccountVC: UIViewController {
                 // signs the user in
                 Auth.auth().signIn(withEmail: self.userEmailTF.text!, password: self.userPasswordTF.text!)
                 
-                // if correctly signed in, direct them to the appropriate VC
-                // send their name over to profile
-                if (self.userType == "provider"){
-                    self.performSegue(withIdentifier: "goToEditProviderProfile", sender: self.createAccountButton)
-                }else {
-                    self.performSegue(withIdentifier: "goToEditClientProfile", sender: self.createAccountButton)
-                }
+                // popup that says "Account created successfully"
+                let alertController = UIAlertController(title: nil, message: "Account created successfully", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                    // if correctly signed in, direct them to the appropriate VC
+                    // send their name over to profile
+                    if (self.userType == "provider"){
+                        self.performSegue(withIdentifier: "goToEditProviderProfile", sender: self.createAccountButton)
+                    }else {
+                        self.performSegue(withIdentifier: "goToEditClientProfile", sender: self.createAccountButton)
+                    }
+                }))
+                self.present(alertController, animated: true)
+
             }
                 
           // Communicate with user about any errors that occured 
