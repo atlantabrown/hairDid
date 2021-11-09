@@ -33,7 +33,6 @@ class CreateAccountVC: UIViewController {
     }
     
     
-    
     @IBAction func segSelected(_ sender: Any) {
         switch providerClientSeg.selectedSegmentIndex {
         case 0:
@@ -79,7 +78,9 @@ class CreateAccountVC: UIViewController {
                 }
             } else {
                 // popup that says "Account created successfully"
-                
+                let alertController = UIAlertController(title: nil, message: "Account created successfully", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alertController, animated: true)
                 // save profile information to firebase database (used for login stuff)
                 self.saveProfile(userName:self.userNameTF.text!, accountType: self.userType) { success in
                 }

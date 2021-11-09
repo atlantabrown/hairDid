@@ -13,6 +13,8 @@ class LoginVC: UIViewController {
     
     @IBOutlet weak var loginEmailTF: UITextField!
     @IBOutlet weak var loginPasswordTF: UITextField!
+    
+    var ref = Database.database().reference(withPath: "users")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,17 +22,22 @@ class LoginVC: UIViewController {
          //Do any additional setup after loading the view.
         
 // we at first want to make sure the user isn't logged in
-//        if isUserLoggedIn() {
-//          // Show settings and highlight the logout feature
-//        } else {
-//          // Show login page
-//        }
+        if isUserLoggedIn() {
+          // Show settings and highlight the logout feature
+        } // otherwise they can continue to login page
+        
+        ref = Database.database().reference(withPath: "users")
+        
+        ref.observe(.value, with: { snapshot in
+          print(snapshot.value as Any)
+        })
+        
     }
     // we don't want the user to be logged into multiple accounts at once because they could
     // override other user information
-//    func isUserLoggedIn() -> Bool {
-//      return Auth.auth().currentUser != nil
-//    }
+    func isUserLoggedIn() -> Bool {
+      return Auth.auth().currentUser != nil
+    }
     
     
     // logs the user in if the account exists
@@ -59,17 +66,41 @@ class LoginVC: UIViewController {
                 break
             }
           } else {
-              print("User signs in successfully")
-              // do I need the below info idk
-              let userInfo = Auth.auth().currentUser
-              let email = userInfo?.email
+              print(" \n User signs in successfully \n")
+              let alertController = UIAlertController(title: nil, message: "Signed in successfully", preferredStyle: .alert)
+              alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+              self.present(alertController, animated: true)
               
-              // direct user to their correct home page
-              // will pull from database to determine their account type 
+              // direct user to their correct home page, will pull from database to determine their account type
               let user = Auth.auth().currentUser
+              let uid = user!.uid
+              print("\n my uid profile\(uid) \n ")
+//              let accountType123 = self.ref.child("profile\(uid)/accountType")
+//              //print("\n my account type \(accountType) \n ")
+//              print("\n my account type \(accountType123) \n ")
+//
+              self.ref.child("profile\(uid)").getData(completion:  { error, snapshot in
+                guard error == nil else {
+                  print(error!.localizedDescription)
+                  return
+                }
+                let accountType = snapshot.value as? String ?? "Unknown"
+                  print("snapshot.value is: \(snapshot.value)")
+                print("\n my account type \(accountType) \n ")
+              })
+              
           }
         }
         
+//        func getUserAccountType(String: uid) -> String {
+//            ref.child("users/\(uid)/accountType").getData(completion:  { error, snapshot in
+//              guard error == nil else {
+//                print(error!.localizedDescription)
+//                return;
+//              }
+//              let userName = snapshot.value as? String ?? "Unknown";
+//            });
+//        }
         
         // Communicate with user about any errors that occured 
         let alertController = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
