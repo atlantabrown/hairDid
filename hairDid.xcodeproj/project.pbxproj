@@ -113,6 +113,8 @@
 				BE2425A127360772007B5175 /* EditProviderProfileVC.swift */,
 				BE18894827391488001FACC7 /* ProviderHomePageVC.swift */,
 				BE18894A273914BB001FACC7 /* ClientHomePageVC.swift */,
+				BE18894C273914E1001FACC7 /* ClientLikeListVC.swift */,
+				BE18894E27391539001FACC7 /* SettingsVC.swift */,
 				BE24258927323761007B5175 /* Main.storyboard */,
 				BE18894427390D70001FACC7 /* background.jpeg */,
 				BE24258F27323763007B5175 /* Assets.xcassets */,
@@ -120,8 +122,6 @@
 				BE24259427323763007B5175 /* Info.plist */,
 				BE24258C27323761007B5175 /* hairDid.xcdatamodeld */,
 				BE24259A27323AC8007B5175 /* GoogleService-Info.plist */,
-				BE18894C273914E1001FACC7 /* ClientLikeListVC.swift */,
-				BE18894E27391539001FACC7 /* SettingsVC.swift */,
 			);
 			path = hairDid;
 			sourceTree = "<group>";

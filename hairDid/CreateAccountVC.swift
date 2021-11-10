@@ -57,25 +57,30 @@ class CreateAccountVC: UIViewController {
             if let error = error as NSError? {
                 switch AuthErrorCode(rawValue: error.code) {
                 case .operationNotAllowed:
-                  // Error: Indicates that email and password accounts are not enabled. Enable them in the Auth section of the Firebase console.
                     alertMessage = "Email and password accounts are not enabled"
+                    
                 case .userDisabled:
-                  // Error: The user account has been disabled by an administrator.
                     alertMessage = "User account has been disabled by an admin."
+                    
                 case .wrongPassword:
-                  // Error: The password is invalid or the user does not have a password.
+                    alertMessage = "User password invalid."
+                    
+                case .invalidEmail:
+                    alertMessage = "Please type in a valid email address"
+                    
+                default:
+                    alertMessage = "Email already in use. Please try again."
                     if (password.count == 0){
                         alertMessage = "Please type in a password."
                     } else if (password.count <= 6){
                         alertMessage = "Password must be greater than 6 characters. Please try again."
                     }
-                case .invalidEmail:
-                  // Error: Indicates the email address is malformed.
-                    alertMessage = "Please type in a valid email address"
-                default:
-                    //print("Error: \(error.localizedDescription)")
-                    alertMessage = "Email already in use. Please try again."
                 }
+                // Communicate with user about any errors that occured
+                let alertController = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alertController, animated: true)
+                
             } else {
                 // save profile information to firebase database (used for login stuff)
                 self.saveProfile(userName:self.userNameTF.text!, accountType: self.userType) { success in
@@ -84,7 +89,7 @@ class CreateAccountVC: UIViewController {
                 // signs the user in
                 Auth.auth().signIn(withEmail: self.userEmailTF.text!, password: self.userPasswordTF.text!)
                 
-                // popup that says "Account created successfully"
+                // popup that tells the user success!!
                 let alertController = UIAlertController(title: nil, message: "Account created successfully", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
                     // if correctly signed in, direct them to the appropriate VC
@@ -96,13 +101,7 @@ class CreateAccountVC: UIViewController {
                     }
                 }))
                 self.present(alertController, animated: true)
-
             }
-                
-          // Communicate with user about any errors that occured 
-          let alertController = UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
-          alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-          self.present(alertController, animated: true)
         }
     }
     
@@ -112,7 +111,7 @@ class CreateAccountVC: UIViewController {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         //let storageRef = Storage.storage().reference().child("user/\(uid)")
         //storageRef.putData(<#T##uploadData: Data##Data#>)
-        let databaseRef = Database.database().reference().child("users/profile\(uid)")
+        let databaseRef = Database.database().reference().child("users/\(uid)")
         
         let userObject: [String: Any] = [
             "userName": userName as NSObject,

@@ -6,13 +6,34 @@
 //
 
 import UIKit
+import Firebase
 
 class ClientHomePageVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
+        //self.tabBarController?.viewControllers?.remove(at: 0)
         // Do any additional setup after loading the view.
+        let user = Auth.auth().currentUser
+        let uid = user!.uid
+        var accountType = ""
+        let ref = Database.database().reference()
+        ref.child("users/\(uid)/accountType").getData(completion:  { error, snapshot in
+          guard error == nil else {
+            print(error!.localizedDescription)
+            return
+          }
+          accountType = snapshot.value as? String ?? "Unknown"
+            //print("account type \(accountType)")
+            if (accountType == "provider"){
+                self.tabBarController?.viewControllers?.remove(at: 0)
+            }
+            if (accountType == "client"){
+                self.tabBarController?.viewControllers?.remove(at: 1)
+            }
+        })
+        
     }
     
 
