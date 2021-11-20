@@ -25,6 +25,7 @@
 		BE24259E273248C9007B5175 /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24259D273248C9007B5175 /* CreateAccountVC.swift */; };
 		BE2425A02736075B007B5175 /* EditClientProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24259F2736075B007B5175 /* EditClientProfileVC.swift */; };
 		BE2425A227360772007B5175 /* EditProviderProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2425A127360772007B5175 /* EditProviderProfileVC.swift */; };
+		BEAC07C127489EEA00D037CC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAC07C027489EEA00D037CC /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		BE24259D273248C9007B5175 /* CreateAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
 		BE24259F2736075B007B5175 /* EditClientProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClientProfileVC.swift; sourceTree = "<group>"; };
 		BE2425A127360772007B5175 /* EditProviderProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProviderProfileVC.swift; sourceTree = "<group>"; };
+		BEAC07C027489EEA00D037CC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				BE18894A273914BB001FACC7 /* ClientHomePageVC.swift */,
 				BE18894C273914E1001FACC7 /* ClientLikeListVC.swift */,
 				BE18894E27391539001FACC7 /* SettingsVC.swift */,
+				BEAC07C027489EEA00D037CC /* TabBarController.swift */,
 				BE24258927323761007B5175 /* Main.storyboard */,
 				BE18894427390D70001FACC7 /* background.jpeg */,
 				BE24258F27323763007B5175 /* Assets.xcassets */,
@@ -244,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE24258827323761007B5175 /* LoginVC.swift in Sources */,
+				BEAC07C127489EEA00D037CC /* TabBarController.swift in Sources */,
 				BE18894927391488001FACC7 /* ProviderHomePageVC.swift in Sources */,
 				BE2425A02736075B007B5175 /* EditClientProfileVC.swift in Sources */,
 				BE24258E27323761007B5175 /* hairDid.xcdatamodeld in Sources */,

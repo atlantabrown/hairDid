@@ -29,6 +29,8 @@ class EditClientProfileVC: UIViewController {
         let user = Auth.auth().currentUser
         let uid = user!.uid
         let ref = Database.database().reference()
+        
+        TabBarController()
     }
     
     

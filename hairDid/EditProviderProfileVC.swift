@@ -23,7 +23,17 @@ class EditProviderProfileVC: UIViewController {
         
     }
     
-
+    // after I press the save button, I would like the next screen to be a view controller with the tab bar controller 
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        print("here")
+        let tabBarController = TabBarController()
+        tabBarController.modalPresentationStyle = .fullScreen
+//        let mainTabBarController = storyboard!.instantiateViewController(identifier: "MainTabBarController")
+//        mainTabBarController.modalPresentationStyle = .fullScreen
+                
+                self.present(tabBarController, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
