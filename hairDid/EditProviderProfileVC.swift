@@ -11,10 +11,12 @@ import Firebase
 class EditProviderProfileVC: UIViewController {
     
     
+    @IBOutlet weak var contentView: UIView!
     //var imagePicker:UIImagePickerController
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        contentView.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
         // Do any additional setup after loading the view.
 

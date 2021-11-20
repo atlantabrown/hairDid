@@ -15,6 +15,8 @@ class ProviderHomePageVC: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
         // Do any additional setup after loading the view.
         
+        // determine the current user's account type and configure the tabs to include
+        // the appropriate user's home page and settings 
         let user = Auth.auth().currentUser
         let uid = user!.uid
         var accountType = ""

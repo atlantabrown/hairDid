@@ -79,7 +79,8 @@ class LoginVC: UIViewController {
                       print(error!.localizedDescription)
                       return
                     }
-                      
+                    
+                    // 
                     let accountType = snapshot.value as? String ?? "Unknown"
                       if (accountType == "provider"){
                           self.performSegue(withIdentifier: "goToProviderHome", sender: self.loginButton)

@@ -113,10 +113,34 @@ class CreateAccountVC: UIViewController {
         //storageRef.putData(<#T##uploadData: Data##Data#>)
         let databaseRef = Database.database().reference().child("users/\(uid)")
         
-        let userObject: [String: Any] = [
-            "userName": userName as NSObject,
-            "accountType": accountType,
-        ]
+        var userObject: [String: Any] = [:]
+        if (accountType == "client"){
+            userObject = [
+                "userName": userName as NSObject,
+                "accountType": accountType,
+                "email": "",
+                "number":"",
+                "bio":"",
+                "contactPreference":"",
+                "zipCode":"",
+                "covidPreference":"",
+            ]
+        }else if (accountType == "provider"){
+            userObject = [
+                "userName": userName as NSObject,
+                "accountType": accountType,
+                "name": "",
+                "businessName": "",
+                "email": "",
+                "number":"",
+                "website":"",
+                "bio":"",
+                "travel":"",
+                "services":"",
+                "zipCode":"",
+                "covidPreference":"",
+            ]
+        }
         
         databaseRef.setValue(userObject) { error, ref in
             completion(error == nil)
