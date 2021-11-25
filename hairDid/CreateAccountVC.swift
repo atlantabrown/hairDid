@@ -106,11 +106,8 @@ class CreateAccountVC: UIViewController {
     }
     
     // updates database with user profile name and type of account
-    // may add a profile picture to this  ******
     func saveProfile(userName: String, accountType: String, completion: @escaping ((_ success:Bool)->())){
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        //let storageRef = Storage.storage().reference().child("user/\(uid)")
-        //storageRef.putData(<#T##uploadData: Data##Data#>)
         let databaseRef = Database.database().reference().child("users/\(uid)")
         
         var userObject: [String: Any] = [:]

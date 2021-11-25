@@ -6,15 +6,149 @@
 //
 
 import UIKit
+import Firebase
 
-class SettingsVC: UIViewController {
+struct Section {
+    let title: String
+    let options: [SettingsOption]
+}
+
+struct SettingsOption {
+    let title: String
+    let icon: UIImage?
+    let iconBackgroundColor: UIColor
+    let handler: (()-> Void)
+}
+
+class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    private let tableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .grouped)
+        table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
+        //table.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
+        return table
+    }()
+    
+    // array of models
+    var models = [Section]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
-        // Do any additional setup after loading the view.
+        
+        
+        configure()
+        
+        title = "settings"
+        view.addSubview(tableView)
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.frame = view.frame
     }
     
+    func configure() {
+        models.append(Section(title: "Settings", options: [
+        ]))
+        
+        models.append(Section(title: "General", options: [
+            SettingsOption(title: "Wifi", icon: UIImage(systemName: "house"), iconBackgroundColor: .systemBlue) {
+                print("tapped first cell")
+            },
+            SettingsOption(title: "Font Size", icon: UIImage(systemName: "fontSize"), iconBackgroundColor: .systemPink) {
+                
+            },
+            SettingsOption(title: "Airplane Mode", icon: UIImage(systemName: "airplane"), iconBackgroundColor: .systemGreen) {
+                
+            },
+            SettingsOption(title: "Dark Mode", icon: UIImage(systemName: "moon.stars"), iconBackgroundColor: .systemGray4) {
+                
+            },
+        ]))
+        
+        models.append(Section(title: "Information", options: [
+            SettingsOption(title: "About App", icon: UIImage(systemName: "information"), iconBackgroundColor: .systemBlue) {
+                print("tapped first cell another section")
+            },
+            SettingsOption(title: "Edit Profile Information", icon: UIImage(systemName: "profile"), iconBackgroundColor: .systemPink) {
+//                let tabBarController = TabBarController()
+//                tabBarController.modalPresentationStyle = .fullScreen
+//                self.present(tabBarController, animated: true, completion: nil)
+                if(self.userIsClient()){
+                    let editClientProfileVC = EditClientProfileVC()
+                    editClientProfileVC.modalPresentationStyle = .fullScreen
+                    self.present(editClientProfileVC, animated: true)
+                }else{
+                    let editProviderProfileVC = EditProviderProfileVC()
+                    editProviderProfileVC.modalPresentationStyle = .fullScreen
+                    self.present(editProviderProfileVC, animated: true)
+                }
+            },
+            SettingsOption(title: "Logout of Account", icon: UIImage(systemName: "questionMark"), iconBackgroundColor: .systemGreen) {
+                try! Auth.auth().signOut()
+                let loginVC = LoginVC()
+                loginVC.modalPresentationStyle = .fullScreen
+                self.present(loginVC, animated: true)
+            },
+        ]))
+    }
+    
+    func userIsClient() -> Bool {
+        var userIsClient = false
+        let user = Auth.auth().currentUser
+        let uid = user!.uid
+        var accountType = ""
+        let ref = Database.database().reference()
+        ref.child("users/\(uid)/accountType").getData(completion:  { error, snapshot in
+          guard error == nil else {
+            print(error!.localizedDescription)
+            return
+          }
+          accountType = snapshot.value as? String ?? "Unknown"
+            //print("account type \(accountType)")
+            if (accountType == "provider"){
+                userIsClient = false
+            }
+            if (accountType == "client"){
+                userIsClient = true
+            }
+        })
+        return userIsClient
+    }
+    
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        let section = models[section]
+        return section.title
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        models.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return models[section].options.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = models[indexPath.section].options[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: SettingTableViewCell.identifier,
+            for: indexPath
+        ) as? SettingTableViewCell else {
+            return UITableViewCell()
+        }
+        //cell.backgroundColor = .clear
+        cell.configure(with: model)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let model = models[indexPath.section].options[indexPath.row]
+        model.handler()
+    }
 
     /*
     // MARK: - Navigation

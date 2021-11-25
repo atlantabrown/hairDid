@@ -9,14 +9,14 @@ import UIKit
 import Firebase
 
 class EditProviderProfileVC: UIViewController {
-    
+    // will need to make these programatically, upload the information into firebase, then work on the hinge 
     
     @IBOutlet weak var contentView: UIView!
     //var imagePicker:UIImagePickerController
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentView.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
+        //contentView.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
         // Do any additional setup after loading the view.
 
@@ -25,13 +25,9 @@ class EditProviderProfileVC: UIViewController {
     
     // after I press the save button, I would like the next screen to be a view controller with the tab bar controller 
     @IBAction func saveButtonPressed(_ sender: Any) {
-        print("here")
         let tabBarController = TabBarController()
         tabBarController.modalPresentationStyle = .fullScreen
-//        let mainTabBarController = storyboard!.instantiateViewController(identifier: "MainTabBarController")
-//        mainTabBarController.modalPresentationStyle = .fullScreen
-                
-                self.present(tabBarController, animated: true, completion: nil)
+        self.present(tabBarController, animated: true, completion: nil)
     }
     
     /*

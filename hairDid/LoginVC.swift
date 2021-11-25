@@ -10,37 +10,116 @@ import Firebase
 
 class LoginVC: UIViewController {
     
-    
-    @IBOutlet weak var loginEmailTF: UITextField!
-    @IBOutlet weak var loginPasswordTF: UITextField!
-    
-    @IBOutlet weak var loginButton: UIButton!
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
          //Do any additional setup after loading the view.
         
+        loginContentView.addSubview(unameTxtField)
+        loginContentView.addSubview(pwordTxtField)
+        btnLogin.addTarget(self,
+                                action: #selector(btnAction),
+                                for: .touchUpInside)
+        loginContentView.addSubview(btnLogin)
+        
+        view.addSubview(loginContentView)
+        setUpAutoLayout()
+        
+        //self.view.addSubview(label)
         // one user at a time should be logged in to avoid overriding other's info
         if isUserLoggedIn() {
-          // Show settings and shake the logout feature
+          // Show settings and shake/highlight the logout feature(??)
+            
+            let alert = UIAlertController(title: "A user is logged in!", message: "Would you like to log out?", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {_ in
+                try! Auth.auth().signOut()
+                let alertController = UIAlertController(title: nil, message: "Signed out successfully", preferredStyle: .alert)
+                
+                alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil ))
+                self.present(alertController, animated: true)
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+            self.present(alert, animated: true)
+            
+//            let settingsVC = SettingsVC()
+//            settingsVC.modalPresentationStyle = .fullScreen
+//            self.present(settingsVC, animated: true)
         }
-        
-        // add back removed VC from tab bar controller in settings when user logs out
+
     }
     
+    private let loginContentView:UIView = {
+      let view = UIView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+      return view
+    }()
+    
+    private let unameTxtField:UITextField = {
+        let txtField = UITextField()
+        txtField.backgroundColor = .white
+        txtField.placeholder = "Email"
+        txtField.borderStyle = .roundedRect
+        txtField.translatesAutoresizingMaskIntoConstraints = false
+        return txtField
+    }()
+    
+    private let pwordTxtField:UITextField = {
+        let txtField = UITextField()
+        txtField.backgroundColor = .white
+        txtField.placeholder = "Password"
+        txtField.borderStyle = .roundedRect
+        txtField.isSecureTextEntry = true
+        txtField.translatesAutoresizingMaskIntoConstraints = false
+        return txtField
+    }()
+    
+    let btnLogin:UIButton = {
+        let btn = UIButton(type:.system)
+        btn.backgroundColor = .blue
+        btn.setTitle("Login", for: .normal)
+        btn.tintColor = .white
+        btn.layer.cornerRadius = 5
+        btn.clipsToBounds = true
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
+    func setUpAutoLayout(){
+        loginContentView.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
+        loginContentView.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
+        loginContentView.heightAnchor.constraint(equalToConstant: view.frame.height/3).isActive = true
+        loginContentView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        unameTxtField.topAnchor.constraint(equalTo:loginContentView.topAnchor).isActive = true
+        unameTxtField.topAnchor.constraint(equalTo:loginContentView.topAnchor, constant:40).isActive = true
+        unameTxtField.leftAnchor.constraint(equalTo:loginContentView.leftAnchor, constant:20).isActive = true
+        unameTxtField.rightAnchor.constraint(equalTo:loginContentView.rightAnchor, constant:-20).isActive = true
+        unameTxtField.heightAnchor.constraint(equalToConstant:50).isActive = true
+        pwordTxtField.leftAnchor.constraint(equalTo:loginContentView.leftAnchor, constant:20).isActive = true
+        pwordTxtField.rightAnchor.constraint(equalTo:loginContentView.rightAnchor, constant:-20).isActive = true
+        pwordTxtField.heightAnchor.constraint(equalToConstant:50).isActive = true
+        pwordTxtField.topAnchor.constraint(equalTo:unameTxtField.bottomAnchor, constant:20).isActive = true
+        btnLogin.topAnchor.constraint(equalTo:pwordTxtField.bottomAnchor, constant:20).isActive = true
+        btnLogin.leftAnchor.constraint(equalTo:loginContentView.leftAnchor, constant:20).isActive = true
+        btnLogin.rightAnchor.constraint(equalTo:loginContentView.rightAnchor, constant:-20).isActive = true
+        btnLogin.heightAnchor.constraint(equalToConstant:50).isActive = true
+    }
+    
+
     // checks if user is logged in
     func isUserLoggedIn() -> Bool {
       return Auth.auth().currentUser != nil
     }
     
     // logs the user in if the account exists
-    @IBAction func loginButtonPressed(_ sender: Any) {
+    @objc
+    func btnAction() {
         
         // makes sure that there is a non empty email and password field
-                guard let email = loginEmailTF.text else { return }
-                guard let password = loginPasswordTF.text else { return }
+                guard let email = unameTxtField.text else { return }
+                guard let password = pwordTxtField.text else { return }
         
         var alertMessage: String = ""
         Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
@@ -71,48 +150,14 @@ class LoginVC: UIViewController {
               
               alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
                   // direct user to their correct home page based off data type
-                  let user = Auth.auth().currentUser
-                  let uid = user!.uid
-                  let ref = Database.database().reference()
-                  ref.child("users/\(uid)/accountType").getData(completion:  { error, snapshot in
-                    guard error == nil else {
-                      print(error!.localizedDescription)
-                      return
-                    }
-                    
-                    // 
-                    let accountType = snapshot.value as? String ?? "Unknown"
-                      if (accountType == "provider"){
-                          self.performSegue(withIdentifier: "goToProviderHome", sender: self.loginButton)
-                          print("provider home HERE")
-                          //self.tabBarController?.viewControllers?.removeFirst()
-                      }else {
-                          self.performSegue(withIdentifier: "goToClientHome", sender: self.loginButton)
-                          print("client home")
-                      }
-                  })
+                  
+                  let tabBarController = TabBarController()
+                  tabBarController.modalPresentationStyle = .fullScreen
+                  self.present(tabBarController, animated: true, completion: nil)
                   
               }))
               self.present(alertController, animated: true)
           }
         }
     }
-//
-//    // variable wont save outside closure yikes
-//    func getUserAccountType(uid: String) -> String {
-//        var accountType = ""
-//        let ref = Database.database().reference()
-//        ref.child("users/\(uid)/accountType").getData(completion:  { error, snapshot in
-//          guard error == nil else {
-//            print(error!.localizedDescription)
-//            return
-//          }
-//
-//          accountType = snapshot.value as? String ?? "Unknown"
-//            print("\n my account type inside closure \(accountType) \n")
-//
-//        })
-//        print("\n my account type \(accountType) \n")
-//        return accountType
-//    }
 }
