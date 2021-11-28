@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 
+
 struct Section {
     let title: String
     let options: [SettingsOption]
@@ -34,10 +35,23 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchUserType() { (userIsClient) in
+            // stop animation
+            // tell
+        }
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
-        
-        
         configure()
+        
+//        // add spinner to view
+//        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(activityIndicator)
+//        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//
+//        // before background task, starting spinner
+//        activityIndicator.startAnimating()
+        
+        
         
         title = "settings"
         view.addSubview(tableView)
@@ -45,9 +59,13 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.frame = view.frame
+        
+        
     }
     
     func configure() {
+        // stops the activity indicator, we have the variable updated!
+        //activityIndicator.stopAnimating()
         models.append(Section(title: "Settings", options: [
         ]))
         
@@ -74,15 +92,20 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //                let tabBarController = TabBarController()
 //                tabBarController.modalPresentationStyle = .fullScreen
 //                self.present(tabBarController, animated: true, completion: nil)
-                if(self.userIsClient()){
-                    let editClientProfileVC = EditClientProfileVC()
-                    editClientProfileVC.modalPresentationStyle = .fullScreen
-                    self.present(editClientProfileVC, animated: true)
-                }else{
-                    let editProviderProfileVC = EditProviderProfileVC()
-                    editProviderProfileVC.modalPresentationStyle = .fullScreen
-                    self.present(editProviderProfileVC, animated: true)
-                }
+               
+                
+                print("inside settings: user is client? \(userIsClient)")
+                
+                    if(userIsClient){
+                        let editClientProfileVC = EditClientProfileVC()
+                        editClientProfileVC.modalPresentationStyle = .fullScreen
+                        self.present(editClientProfileVC, animated: true)
+                    }else{
+                        let editProviderProfileVC = EditProviderProfileVC()
+                        editProviderProfileVC.modalPresentationStyle = .fullScreen
+                        self.present(editProviderProfileVC, animated: true)
+                    }
+                
             },
             SettingsOption(title: "Logout of Account", icon: UIImage(systemName: "questionMark"), iconBackgroundColor: .systemGreen) {
                 try! Auth.auth().signOut()
@@ -93,8 +116,11 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ]))
     }
     
-    func userIsClient() -> Bool {
-        var userIsClient = false
+    
+        
+   
+    
+    func fetchUserType(userCompletionHandler: @escaping (Bool) -> Void) {
         let user = Auth.auth().currentUser
         let uid = user!.uid
         var accountType = ""
@@ -105,15 +131,9 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             return
           }
           accountType = snapshot.value as? String ?? "Unknown"
-            //print("account type \(accountType)")
-            if (accountType == "provider"){
-                userIsClient = false
-            }
-            if (accountType == "client"){
-                userIsClient = true
-            }
+            userIsClient = (accountType == "client")
+            userCompletionHandler(userIsClient)
         })
-        return userIsClient
     }
     
     

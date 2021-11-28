@@ -19,7 +19,6 @@ class CreateAccountVC: UIViewController {
     @IBOutlet weak var userEmailTF: UITextField!
     @IBOutlet weak var userPasswordTF: UITextField!
     
-    
     @IBOutlet weak var createAccountButton: UIButton!
     
     // client is default value
@@ -31,7 +30,6 @@ class CreateAccountVC: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-    
     
     @IBAction func segSelected(_ sender: Any) {
         switch providerClientSeg.selectedSegmentIndex {
@@ -51,7 +49,7 @@ class CreateAccountVC: UIViewController {
         // makes sure that there is a non empty email and password field
         guard let email = userEmailTF.text else { return }
         guard let password = userPasswordTF.text else { return }
-        
+
         var alertMessage: String = ""
         Auth.auth().createUser(withEmail: email, password: password) { [self] user, error in
             if let error = error as NSError? {
@@ -83,7 +81,7 @@ class CreateAccountVC: UIViewController {
                 
             } else {
                 // save profile information to firebase database (used for login stuff)
-                self.saveProfile(userName:self.userNameTF.text!, accountType: self.userType) { success in
+                self.saveProfile(userName:self.userNameTF.text!, email:self.userEmailTF.text!, accountType: self.userType) { success in
                 }
                 
                 // signs the user in
@@ -106,25 +104,25 @@ class CreateAccountVC: UIViewController {
     }
     
     // updates database with user profile name and type of account
-    func saveProfile(userName: String, accountType: String, completion: @escaping ((_ success:Bool)->())){
+    func saveProfile(userName: String, email: String, accountType: String, completion: @escaping ((_ success:Bool)->())){
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let databaseRef = Database.database().reference().child("users/\(uid)")
         
         var userObject: [String: Any] = [:]
         if (accountType == "client"){
             userObject = [
-                "userName": userName as NSObject,
+                "name": userName as NSString, //as NSObject
                 "accountType": accountType,
-                "email": "",
-                "number":"",
-                "bio":"",
-                "contactPreference":"",
-                "zipCode":"",
-                "covidPreference":"",
+                "email": email as NSString,
+                "style":"" as NSString,
+                "avail":"" as NSString,
+                "number":"" as NSString,
+                "zipCode":"" as NSString,
+                "covidPreference":"" as NSString,
             ]
         }else if (accountType == "provider"){
             userObject = [
-                "userName": userName as NSObject,
+                "userName": userName,
                 "accountType": accountType,
                 "name": "",
                 "businessName": "",
