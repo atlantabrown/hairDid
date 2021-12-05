@@ -122,18 +122,18 @@ class CreateAccountVC: UIViewController {
             ]
         }else if (accountType == "provider"){
             userObject = [
-                "userName": userName,
+                "userName": userName as NSString,
                 "accountType": accountType,
-                "name": "",
-                "businessName": "",
-                "email": "",
-                "number":"",
-                "website":"",
-                "bio":"",
-                "travel":"",
-                "services":"",
-                "zipCode":"",
-                "covidPreference":"",
+                "email": email as NSString,
+                "name": "" as NSString,
+                "businessName": "" as NSString,
+                "website":"" as NSString,
+                "avail":"" as NSString,
+                "style":"" as NSString,
+                "number":"" as NSString,
+                "zipCode":"" as NSString,
+                "covidPreference":"" as NSString,
+                "gallery":"" as NSString,
             ]
         }
         

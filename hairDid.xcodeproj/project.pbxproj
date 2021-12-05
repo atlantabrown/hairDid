@@ -11,6 +11,12 @@
 		BE0AB91C2750D33D004D18CA /* royal purple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE0AB91B2750D33D004D18CA /* royal purple.jpg */; };
 		BE0AB91E2750D34A004D18CA /* hair_stock_photo_-removebg-preview.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0AB91D2750D34A004D18CA /* hair_stock_photo_-removebg-preview.png */; };
 		BE0AB9202750D3FF004D18CA /* light purp.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE0AB91F2750D3FF004D18CA /* light purp.jpg */; };
+		BE1876A22759C79C002E78EB /* Login.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE1876A12759C79C002E78EB /* Login.jpg */; };
+		BE1876A42759C7A3002E78EB /* SignUp.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE1876A32759C7A3002E78EB /* SignUp.jpg */; };
+		BE1876A62759C7A7002E78EB /* Edit.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE1876A52759C7A7002E78EB /* Edit.jpg */; };
+		BE1876AA2759DD32002E78EB /* loginBG.png in Resources */ = {isa = PBXBuildFile; fileRef = BE1876A92759DD32002E78EB /* loginBG.png */; };
+		BE1876AC2759E004002E78EB /* EditProviderProfileVC+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1876AB2759E004002E78EB /* EditProviderProfileVC+handlers.swift */; };
+		BE1876AE2759E23B002E78EB /* greySquare.png in Resources */ = {isa = PBXBuildFile; fileRef = BE1876AD2759E23B002E78EB /* greySquare.png */; };
 		BE18894527390D70001FACC7 /* background.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = BE18894427390D70001FACC7 /* background.jpeg */; };
 		BE18894727391451001FACC7 /* LoadingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18894627391451001FACC7 /* LoadingPage.swift */; };
 		BE18894927391488001FACC7 /* ProviderHomePageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18894827391488001FACC7 /* ProviderHomePageVC.swift */; };
@@ -39,6 +45,12 @@
 		BE0AB91B2750D33D004D18CA /* royal purple.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "royal purple.jpg"; sourceTree = SOURCE_ROOT; };
 		BE0AB91D2750D34A004D18CA /* hair_stock_photo_-removebg-preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hair_stock_photo_-removebg-preview.png"; sourceTree = "<group>"; };
 		BE0AB91F2750D3FF004D18CA /* light purp.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "light purp.jpg"; sourceTree = SOURCE_ROOT; };
+		BE1876A12759C79C002E78EB /* Login.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Login.jpg; sourceTree = SOURCE_ROOT; };
+		BE1876A32759C7A3002E78EB /* SignUp.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SignUp.jpg; sourceTree = SOURCE_ROOT; };
+		BE1876A52759C7A7002E78EB /* Edit.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Edit.jpg; sourceTree = SOURCE_ROOT; };
+		BE1876A92759DD32002E78EB /* loginBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginBG.png; sourceTree = "<group>"; };
+		BE1876AB2759E004002E78EB /* EditProviderProfileVC+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditProviderProfileVC+handlers.swift"; sourceTree = "<group>"; };
+		BE1876AD2759E23B002E78EB /* greySquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greySquare.png; sourceTree = "<group>"; };
 		BE18894427390D70001FACC7 /* background.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpeg; sourceTree = SOURCE_ROOT; };
 		BE18894627391451001FACC7 /* LoadingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPage.swift; sourceTree = "<group>"; };
 		BE18894827391488001FACC7 /* ProviderHomePageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderHomePageVC.swift; sourceTree = "<group>"; };
@@ -114,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				BE24259C273242F1007B5175 /* hairDid.entitlements */,
+				BE1876AB2759E004002E78EB /* EditProviderProfileVC+handlers.swift */,
 				BE24258327323761007B5175 /* AppDelegate.swift */,
 				BE18894627391451001FACC7 /* LoadingPage.swift */,
 				BE24258527323761007B5175 /* SceneDelegate.swift */,
@@ -129,7 +142,12 @@
 				BEAC07C027489EEA00D037CC /* TabBarController.swift */,
 				BE24258927323761007B5175 /* Main.storyboard */,
 				BE18894427390D70001FACC7 /* background.jpeg */,
+				BE1876A52759C7A7002E78EB /* Edit.jpg */,
+				BE1876A92759DD32002E78EB /* loginBG.png */,
+				BE1876AD2759E23B002E78EB /* greySquare.png */,
+				BE1876A32759C7A3002E78EB /* SignUp.jpg */,
 				BE0AB91F2750D3FF004D18CA /* light purp.jpg */,
+				BE1876A12759C79C002E78EB /* Login.jpg */,
 				BE0AB91D2750D34A004D18CA /* hair_stock_photo_-removebg-preview.png */,
 				BE0AB91B2750D33D004D18CA /* royal purple.jpg */,
 				BE24258F27323763007B5175 /* Assets.xcassets */,
@@ -203,10 +221,15 @@
 			files = (
 				BE24259327323763007B5175 /* LaunchScreen.storyboard in Resources */,
 				BE24259B27323AC8007B5175 /* GoogleService-Info.plist in Resources */,
+				BE1876A22759C79C002E78EB /* Login.jpg in Resources */,
 				BE0AB91E2750D34A004D18CA /* hair_stock_photo_-removebg-preview.png in Resources */,
+				BE1876AA2759DD32002E78EB /* loginBG.png in Resources */,
 				BE24259027323763007B5175 /* Assets.xcassets in Resources */,
 				BE24258B27323761007B5175 /* Main.storyboard in Resources */,
+				BE1876A62759C7A7002E78EB /* Edit.jpg in Resources */,
 				BE0AB9202750D3FF004D18CA /* light purp.jpg in Resources */,
+				BE1876A42759C7A3002E78EB /* SignUp.jpg in Resources */,
+				BE1876AE2759E23B002E78EB /* greySquare.png in Resources */,
 				BE0AB91C2750D33D004D18CA /* royal purple.jpg in Resources */,
 				BE18894527390D70001FACC7 /* background.jpeg in Resources */,
 			);
@@ -271,6 +294,7 @@
 				BE18894F27391539001FACC7 /* SettingsVC.swift in Sources */,
 				BE18894B273914BB001FACC7 /* ClientHomePageVC.swift in Sources */,
 				BE24259E273248C9007B5175 /* CreateAccountVC.swift in Sources */,
+				BE1876AC2759E004002E78EB /* EditProviderProfileVC+handlers.swift in Sources */,
 				BE24258627323761007B5175 /* SceneDelegate.swift in Sources */,
 				BE18894D273914E1001FACC7 /* ClientLikeListVC.swift in Sources */,
 				BE2425A227360772007B5175 /* EditProviderProfileVC.swift in Sources */,

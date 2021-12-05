@@ -9,6 +9,7 @@ target 'hairDid' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  #pod 'FirebaseFirestoreSwift'
   
   # add pods for desired Firebase products
   # https://firebase.google.com/docs/ios/setup#available-pods

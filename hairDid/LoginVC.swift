@@ -17,6 +17,36 @@ class LoginVC: UIViewController {
       return view
     }()
     
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named:"loginBG")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
+    lazy var profileConstraints: [NSLayoutConstraint] = [
+          NSLayoutConstraint(item: self.profileImageView, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1, constant: 0),
+           NSLayoutConstraint(item: self.profileImageView, attribute: .right, relatedBy: .equal, toItem: self.view, attribute: .right, multiplier: 1, constant: -20),
+    ]
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints =  false
+        label.text = "Login"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 40)
+        label.textColor = UIColor.systemGray6
+        return label
+    }()
+    
+    lazy var titleConstraints: [NSLayoutConstraint] = [
+          NSLayoutConstraint(item: self.titleLabel, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1, constant: 0),
+           NSLayoutConstraint(item: self.titleLabel, attribute: .right, relatedBy: .equal, toItem: self.view, attribute: .right, multiplier: 1, constant: 0),
+          NSLayoutConstraint(item: self.titleLabel, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: self.view, attribute: .top, multiplier: 1, constant: 270),
+           NSLayoutConstraint(item: self.titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
+    ]
+    
     private let unameTxtField:UITextField = {
         let txtField = UITextField()
         txtField.backgroundColor = .white
@@ -47,13 +77,18 @@ class LoginVC: UIViewController {
         return btn
     }()
     
-   
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
          //Do any additional setup after loading the view.
+        
+        self.view.addSubview(profileImageView)
+        self.view.addConstraints(profileConstraints)
+        
+        self.view.addSubview(titleLabel)
+        self.view.addConstraints(self.titleConstraints)
         
         loginContentView.addSubview(unameTxtField)
         loginContentView.addSubview(pwordTxtField)
@@ -93,13 +128,14 @@ class LoginVC: UIViewController {
     }
     
     func setUpAutoLayout(){
+        
         loginContentView.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
         loginContentView.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
-        loginContentView.heightAnchor.constraint(equalToConstant: view.frame.height/3).isActive = true
+        loginContentView.heightAnchor.constraint(equalToConstant: view.frame.height/4).isActive = true
         loginContentView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         unameTxtField.topAnchor.constraint(equalTo:loginContentView.topAnchor).isActive = true
-        unameTxtField.topAnchor.constraint(equalTo:loginContentView.topAnchor, constant:40).isActive = true
+        unameTxtField.topAnchor.constraint(equalTo:loginContentView.topAnchor, constant:20).isActive = true
         unameTxtField.leftAnchor.constraint(equalTo:loginContentView.leftAnchor, constant:20).isActive = true
         unameTxtField.rightAnchor.constraint(equalTo:loginContentView.rightAnchor, constant:-20).isActive = true
         unameTxtField.heightAnchor.constraint(equalToConstant:50).isActive = true
@@ -146,6 +182,7 @@ class LoginVC: UIViewController {
                 alertMessage = "Email address is incorrect. Please try again :)"
                 
             default:
+                alertMessage = "Email address is incorrect. Please try again :)"
                 break
             }
               //Communicate with user about any errors that occured

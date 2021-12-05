@@ -42,24 +42,12 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
         configure()
         
-//        // add spinner to view
-//        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(activityIndicator)
-//        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//
-//        // before background task, starting spinner
-//        activityIndicator.startAnimating()
-        
-        
-        
         title = "settings"
         view.addSubview(tableView)
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.frame = view.frame
-        
         
     }
     
@@ -70,30 +58,9 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ]))
         
         models.append(Section(title: "General", options: [
-            SettingsOption(title: "Wifi", icon: UIImage(systemName: "house"), iconBackgroundColor: .systemBlue) {
-                print("tapped first cell")
-            },
-            SettingsOption(title: "Font Size", icon: UIImage(systemName: "fontSize"), iconBackgroundColor: .systemPink) {
-                
-            },
-            SettingsOption(title: "Airplane Mode", icon: UIImage(systemName: "airplane"), iconBackgroundColor: .systemGreen) {
-                
-            },
-            SettingsOption(title: "Dark Mode", icon: UIImage(systemName: "moon.stars"), iconBackgroundColor: .systemGray4) {
-                
-            },
-        ]))
-        
-        models.append(Section(title: "Information", options: [
-            SettingsOption(title: "About App", icon: UIImage(systemName: "information"), iconBackgroundColor: .systemBlue) {
-                print("tapped first cell another section")
-            },
-            SettingsOption(title: "Edit Profile Information", icon: UIImage(systemName: "profile"), iconBackgroundColor: .systemPink) {
-//                let tabBarController = TabBarController()
-//                tabBarController.modalPresentationStyle = .fullScreen
-//                self.present(tabBarController, animated: true, completion: nil)
-               
-                
+           
+            SettingsOption(title: "Edit Profile Information", icon: UIImage(systemName: "person"), iconBackgroundColor: .systemGreen) {
+
                 print("inside settings: user is client? \(userIsClient)")
                 
                     if(userIsClient){
@@ -105,20 +72,29 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         editProviderProfileVC.modalPresentationStyle = .fullScreen
                         self.present(editProviderProfileVC, animated: true)
                     }
-                
             },
-            SettingsOption(title: "Logout of Account", icon: UIImage(systemName: "questionMark"), iconBackgroundColor: .systemGreen) {
+            SettingsOption(title: "Sign Out", icon: UIImage(systemName: "pip.exit"), iconBackgroundColor: .systemPink) {
                 try! Auth.auth().signOut()
                 let loginVC = LoginVC()
                 loginVC.modalPresentationStyle = .fullScreen
                 self.present(loginVC, animated: true)
             },
         ]))
-    }
-    
-    
         
-   
+        models.append(Section(title: "Information", options: [
+            SettingsOption(title: "Share with your friends!", icon: UIImage(systemName: "square.and.arrow.up"), iconBackgroundColor: .systemMint) {
+                let items = ["Check out HairDid! This app helps matches you with a hair braider or client."]
+                let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+                self.present(ac, animated: true)
+            },
+            SettingsOption(title: "About App", icon: UIImage(systemName: "info.circle"), iconBackgroundColor: .systemBlue) {
+                // will open up into a new VC that says some stuff about the app
+                print("tapped first cell another section")
+            },
+        ]))
+        
+       
+    }
     
     func fetchUserType(userCompletionHandler: @escaping (Bool) -> Void) {
         let user = Auth.auth().currentUser
@@ -169,15 +145,4 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let model = models[indexPath.section].options[indexPath.row]
         model.handler()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
