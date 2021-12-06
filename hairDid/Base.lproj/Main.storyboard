@@ -163,10 +163,10 @@
             </objects>
             <point key="canvasLocation" x="4053.6231884057975" y="1043.9732142857142"/>
         </scene>
-        <!--LoadingPage-->
+        <!--AboutVC-->
         <scene sceneID="oOD-3g-KOc">
             <objects>
-                <viewController title="LoadingPage" id="a07-5j-IAS" customClass="LoadingPage" customModule="hairDid" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="AboutVC" id="a07-5j-IAS" customClass="LoadingPage" customModule="hairDid" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uPu-QK-pM1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

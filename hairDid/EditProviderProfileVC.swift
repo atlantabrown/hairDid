@@ -28,17 +28,6 @@ class EditProviderProfileVC: UIViewController, UITextViewDelegate {
       return view
     }()
     
-//    lazy var sampleStyleImageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.image = UIImage(named:"greySquare")
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.contentMode = .scaleAspectFill
-//
-//        imageView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(handleSelectGalleryImageView)))
-//        imageView.isUserInteractionEnabled = true
-//        return imageView
-//    }()
-    
     lazy var sampleStyleImageView: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints =  false
@@ -163,7 +152,6 @@ class EditProviderProfileVC: UIViewController, UITextViewDelegate {
         return btn
     }()
     
-    // Do any additional setup after loading the view.
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
@@ -238,8 +226,8 @@ class EditProviderProfileVC: UIViewController, UITextViewDelegate {
             print(error!.localizedDescription)
             return;
           }
-            self.dbProviderName = snapshot.value as? String ?? ""
-            self.providerFree.text = self.dbProviderName
+            self.dbProviderFree = snapshot.value as? String ?? ""
+            self.providerFree.text = self.dbProviderFree
         })
         
         ref.child("users/\(uid)/number").getData(completion:  { error, snapshot in
@@ -269,13 +257,9 @@ class EditProviderProfileVC: UIViewController, UITextViewDelegate {
             self.covidPreferences.text = self.dbCovidPreferences
         })
     }
-       
-    // we want to be able to save the profile
-    // we want to be able to make changes to the profile
-    
-    
-    func setUpAutoLayout(){
 
+    // user can make changes to the information uploaded
+    func setUpAutoLayout(){
         editProviderProfile.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
         editProviderProfile.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
         editProviderProfile.heightAnchor.constraint(equalTo:view.heightAnchor).isActive = true
@@ -283,12 +267,16 @@ class EditProviderProfileVC: UIViewController, UITextViewDelegate {
         editProviderProfile.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         editProviderProfile.topAnchor.constraint(equalTo: view.bottomAnchor, constant:50).isActive = true
-
+        
+        sampleStyleImageView.leftAnchor.constraint(equalTo:editProviderProfile.leftAnchor, constant:20).isActive = true
+        sampleStyleImageView.rightAnchor.constraint(equalTo:editProviderProfile.rightAnchor, constant:-20).isActive = true
+        sampleStyleImageView.heightAnchor.constraint(equalToConstant:50).isActive = true
+        sampleStyleImageView.topAnchor.constraint(equalTo: editProviderProfile.topAnchor, constant:50).isActive = true
         
         providerName.leftAnchor.constraint(equalTo:editProviderProfile.leftAnchor, constant:20).isActive = true
         providerName.rightAnchor.constraint(equalTo:editProviderProfile.rightAnchor, constant:-20).isActive = true
         providerName.heightAnchor.constraint(equalToConstant:50).isActive = true
-        providerName.topAnchor.constraint(equalTo: editProviderProfile.topAnchor, constant:50).isActive = true
+        providerName.topAnchor.constraint(equalTo: sampleStyleImageView.topAnchor, constant:50).isActive = true
         
         businessName.leftAnchor.constraint(equalTo:editProviderProfile.leftAnchor, constant:20).isActive = true
         businessName.rightAnchor.constraint(equalTo:editProviderProfile.rightAnchor, constant:-20).isActive = true
@@ -325,20 +313,14 @@ class EditProviderProfileVC: UIViewController, UITextViewDelegate {
         covidPreferences.heightAnchor.constraint(equalToConstant:50).isActive = true
         covidPreferences.topAnchor.constraint(equalTo:appointmentLocation.bottomAnchor, constant:20).isActive = true
         
-        sampleStyleImageView.leftAnchor.constraint(equalTo:editProviderProfile.leftAnchor, constant:20).isActive = true
-        sampleStyleImageView.rightAnchor.constraint(equalTo:editProviderProfile.rightAnchor, constant:-20).isActive = true
-        sampleStyleImageView.heightAnchor.constraint(equalToConstant:50).isActive = true
-        sampleStyleImageView.topAnchor.constraint(equalTo:covidPreferences.bottomAnchor, constant:20).isActive = true
-        
-        saveProviderProfileBtn.topAnchor.constraint(equalTo:sampleStyleImageView.bottomAnchor, constant:20).isActive = true
+        saveProviderProfileBtn.topAnchor.constraint(equalTo:covidPreferences.bottomAnchor, constant:20).isActive = true
         saveProviderProfileBtn.leftAnchor.constraint(equalTo:editProviderProfile.leftAnchor, constant:20).isActive = true
         saveProviderProfileBtn.rightAnchor.constraint(equalTo:editProviderProfile.rightAnchor, constant:-20).isActive = true
         saveProviderProfileBtn.heightAnchor.constraint(equalToConstant:50).isActive = true
     }
     
     
-    @objc
-    func btnAction() {
+    @objc func btnAction() {
         ref = Database.database().reference()
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -368,7 +350,7 @@ class EditProviderProfileVC: UIViewController, UITextViewDelegate {
             self.ref.child("users/\(uid)/covidPreference").setValue(covidPreferences.text! as NSString)
         }
         
-        // popup that tells the user information saved
+        // popup that tells the user information saved successfullly
         let alertController = UIAlertController(title: nil, message: "Information saved successfully", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
             let tabBarController = TabBarController()

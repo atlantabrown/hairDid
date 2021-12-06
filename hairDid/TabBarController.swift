@@ -43,7 +43,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     func showData(){
         // stops the activity indicator, we have the variable updated!
         activityIndicator.stopAnimating()
-        //print("IS USER CLIENT")
+
         let item1 = (userIsClient) ? ClientHomePageVC() : ProviderHomePageVC()
         let icon1 = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
         item1.tabBarItem = icon1
@@ -55,7 +55,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let controllers = [item1, item2]
         self.viewControllers = controllers
     }
-  
     
     func fetchUserType(userCompletionHandler: @escaping (Bool) -> Void) {
         let user = Auth.auth().currentUser

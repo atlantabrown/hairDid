@@ -18,8 +18,6 @@ extension EditProviderProfileVC: UIImagePickerControllerDelegate, UINavigationCo
         picker.allowsEditing = true
         
         present(picker, animated: true, completion: nil)
-        
-        // will upload into db, then fill in home page with this
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -28,12 +26,9 @@ extension EditProviderProfileVC: UIImagePickerControllerDelegate, UINavigationCo
         
         if let editedImage = info [UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerOriginalImage")] as? UIImage{
             selectedImageFromPicker = editedImage
-            print("MY EDITED IMAGE \(editedImage)")
         } else if let originalImage =
             info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerOriginalImage")] as? UIImage{
-            print("info")
             selectedImageFromPicker = originalImage
-                print("MY original IMAGE \(originalImage)")
         }
         
         if let selectedImage = selectedImageFromPicker {
@@ -53,7 +48,7 @@ extension EditProviderProfileVC: UIImagePickerControllerDelegate, UINavigationCo
     func saveInfoInsideStorage(selectedImage: UIImage) {
         //let storageRef = Storage.storage().reference().child("myImage.png")
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        let storageRef = Storage.storage().reference().child("myImage.png")
+        let storageRef = Storage.storage().reference().child("\(uid) myImage.png")
         let storageProfileRef = storageRef.child(uid)
         
         // upload photo into stoage
@@ -65,12 +60,11 @@ extension EditProviderProfileVC: UIImagePickerControllerDelegate, UINavigationCo
                 }
 
                 let metadata = StorageMetadata()
-                metadata.contentType = "image/jpg"
+                metadata.contentType = "image/png"
 
                 // update URL to image in db
                 storageProfileRef.downloadURL (completion: {(url, error) in
                     if let metaImageURL = url?.absoluteString {
-                        print(metaImageURL)
                         let ref = Database.database().reference()
                         ref.child("users/\(uid)/gallery").setValue(metaImageURL)
                     }

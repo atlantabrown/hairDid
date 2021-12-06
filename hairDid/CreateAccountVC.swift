@@ -27,8 +27,6 @@ class CreateAccountVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
-        
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func segSelected(_ sender: Any) {
@@ -43,9 +41,8 @@ class CreateAccountVC: UIViewController {
         createAccountButton.setTitle("create \(userType) account", for: .normal)
     }
     
-    // ask for suggestions for how I can split this up into a function, method too big
+    
     @IBAction func createAccountSelected(_ sender: Any) {
-        
         // makes sure that there is a non empty email and password field
         guard let email = userEmailTF.text else { return }
         guard let password = userPasswordTF.text else { return }
@@ -111,7 +108,7 @@ class CreateAccountVC: UIViewController {
         var userObject: [String: Any] = [:]
         if (accountType == "client"){
             userObject = [
-                "name": userName as NSString, //as NSObject
+                "name": userName as NSString,
                 "accountType": accountType,
                 "email": email as NSString,
                 "style":"" as NSString,
@@ -141,15 +138,4 @@ class CreateAccountVC: UIViewController {
             completion(error == nil)
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

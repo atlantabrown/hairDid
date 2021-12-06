@@ -134,10 +134,9 @@ class EditClientProfileVC: UIViewController, UITextViewDelegate {
         view.addSubview(editClientProfile)
         setUpAutoLayout()
         
-        // populate text fields with what's in the database for the user
+        // populates text fields with what's in the database for the user
         updateFieldsWithValuesFromDatabase()
     }
-    
 
     func updateFieldsWithValuesFromDatabase() {
         ref = Database.database().reference()

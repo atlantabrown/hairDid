@@ -10,13 +10,14 @@ import Firebase
 
 class LoginVC: UIViewController {
     
+    // view that'll help organize the constrants added
     private let loginContentView:UIView = {
       let view = UIView()
-        
         view.translatesAutoresizingMaskIntoConstraints = false
       return view
     }()
     
+    // muted afro logo in backgroung
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named:"loginBG")
@@ -26,8 +27,8 @@ class LoginVC: UIViewController {
     }()
     
     lazy var profileConstraints: [NSLayoutConstraint] = [
-          NSLayoutConstraint(item: self.profileImageView, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1, constant: 0),
-           NSLayoutConstraint(item: self.profileImageView, attribute: .right, relatedBy: .equal, toItem: self.view, attribute: .right, multiplier: 1, constant: -20),
+        NSLayoutConstraint(item: self.profileImageView, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1, constant: 0),
+        NSLayoutConstraint(item: self.profileImageView, attribute: .right, relatedBy: .equal, toItem: self.view, attribute: .right, multiplier: 1, constant: -20),
     ]
     
     let titleLabel: UILabel = {
@@ -41,10 +42,10 @@ class LoginVC: UIViewController {
     }()
     
     lazy var titleConstraints: [NSLayoutConstraint] = [
-          NSLayoutConstraint(item: self.titleLabel, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1, constant: 0),
-           NSLayoutConstraint(item: self.titleLabel, attribute: .right, relatedBy: .equal, toItem: self.view, attribute: .right, multiplier: 1, constant: 0),
-          NSLayoutConstraint(item: self.titleLabel, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: self.view, attribute: .top, multiplier: 1, constant: 270),
-           NSLayoutConstraint(item: self.titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
+        NSLayoutConstraint(item: self.titleLabel, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1, constant: 0),
+        NSLayoutConstraint(item: self.titleLabel, attribute: .right, relatedBy: .equal, toItem: self.view, attribute: .right, multiplier: 1, constant: 0),
+        NSLayoutConstraint(item: self.titleLabel, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: self.view, attribute: .top, multiplier: 1, constant: 270),
+        NSLayoutConstraint(item: self.titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
     ]
     
     private let unameTxtField:UITextField = {
@@ -77,12 +78,9 @@ class LoginVC: UIViewController {
         return btn
     }()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
-         //Do any additional setup after loading the view.
         
         self.view.addSubview(profileImageView)
         self.view.addConstraints(profileConstraints)
@@ -100,11 +98,8 @@ class LoginVC: UIViewController {
         view.addSubview(loginContentView)
         setUpAutoLayout()
         
-        //self.view.addSubview(label)
         // one user at a time should be logged in to avoid overriding other's info
         if isUserLoggedIn() {
-          // Show settings and shake/highlight the logout feature(??)
-            
             let alert = UIAlertController(title: "A user is logged in!", message: "Would you like to log out?", preferredStyle: .alert)
 
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {_ in
@@ -115,20 +110,17 @@ class LoginVC: UIViewController {
                 self.present(alertController, animated: true)
             }))
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: {_ in
-                let settingsVC = SettingsVC()
-                settingsVC.modalPresentationStyle = .fullScreen
-                self.present(settingsVC, animated: true)
+                
+                let tabBarController = TabBarController()
+                tabBarController.modalPresentationStyle = .fullScreen
+                self.present(tabBarController, animated: true, completion: nil)
+    
             }))
-
             self.present(alert, animated: true)
-            
-
         }
-
     }
     
     func setUpAutoLayout(){
-        
         loginContentView.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
         loginContentView.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
         loginContentView.heightAnchor.constraint(equalToConstant: view.frame.height/4).isActive = true
@@ -162,8 +154,8 @@ class LoginVC: UIViewController {
     func btnAction() {
         
         // makes sure that there is a non empty email and password field
-                guard let email = unameTxtField.text else { return }
-                guard let password = pwordTxtField.text else { return }
+        guard let email = unameTxtField.text else { return }
+        guard let password = pwordTxtField.text else { return }
         
         var alertMessage: String = ""
         Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in

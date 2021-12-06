@@ -26,18 +26,15 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
-        //table.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
         return table
     }()
     
-    // array of models
     var models = [Section]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchUserType() { (userIsClient) in
-            // stop animation
-            // tell
+
         }
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpeg")!)
         configure()
@@ -52,8 +49,6 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func configure() {
-        // stops the activity indicator, we have the variable updated!
-        //activityIndicator.stopAnimating()
         models.append(Section(title: "Settings", options: [
         ]))
         
@@ -88,12 +83,11 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.present(ac, animated: true)
             },
             SettingsOption(title: "About App", icon: UIImage(systemName: "info.circle"), iconBackgroundColor: .systemBlue) {
-                // will open up into a new VC that says some stuff about the app
-                print("tapped first cell another section")
+                let aboutVC = AboutVC()
+                aboutVC.modalPresentationStyle = .fullScreen
+                self.present(aboutVC, animated: true)
             },
         ]))
-        
-       
     }
     
     func fetchUserType(userCompletionHandler: @escaping (Bool) -> Void) {
@@ -111,7 +105,6 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             userCompletionHandler(userIsClient)
         })
     }
-    
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
@@ -135,7 +128,6 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ) as? SettingTableViewCell else {
             return UITableViewCell()
         }
-        //cell.backgroundColor = .clear
         cell.configure(with: model)
         return cell
     }
